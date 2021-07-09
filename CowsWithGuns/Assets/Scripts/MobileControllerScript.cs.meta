@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ba67516636f9c3f4f8503da1890640e6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - joystickCircle: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - joystickButton: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - buttonImg: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
