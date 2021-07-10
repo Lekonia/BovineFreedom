@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody)), DisallowMultipleComponent]
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(ShootLogic)), DisallowMultipleComponent]
 public class PoliceController : MonoBehaviour
 {
     public float desiredSpeed = 5;
@@ -16,11 +16,19 @@ public class PoliceController : MonoBehaviour
     [Space]
     public float fleeRadius = 3;
     public float fleeWeight = 250;
-
+    [Space]
+    public Transform firePoint;
+    public float chanceToHit = 0.5f;
+    [Tooltip("Rate of fire in bullets per second")]
+    public float fireRate = 1;
 
     private Transform player;
     private Rigidbody rb;
     private NavMeshAgent agent;
+    private ShootLogic shootLogic;
+
+    // The time of the last shot
+    private float lastShotTime = 0;
 
 
 
@@ -35,6 +43,10 @@ public class PoliceController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        shootLogic = GetComponent<ShootLogic>();
+
+        // Convert to time between firing
+        fireRate = 1 / fireRate;
 
         agent.updatePosition = false;
         agent.updateRotation = false;
@@ -64,11 +76,27 @@ public class PoliceController : MonoBehaviour
             // Apply breaking force
             rb.AddForce(-rb.velocity * Time.fixedDeltaTime * stoppingWeight);
 
-            //fire
+            // Fire at the player
+            if (lastShotTime + fireRate <= Time.time)
+			{
+                Vector3 dir = (player.position - firePoint.position).normalized;
+                // If we should miss the player, rotate the direction
+                bool shouldHit = Random.Range(0f, 1f) < chanceToHit;
+                if (!shouldHit)
+				{
+                    // Rotate by random angle to miss
+                    float angle = Random.Range(10f, 20f) * Mathf.Deg2Rad;
+                    dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
+                    dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
+                }
+                // Fire
+                shootLogic.Fire(firePoint.position, dir);
 
-		}
+                lastShotTime = Time.time;
+            }
+        }
         // Too close, flee
-		else
+        else
 		{
             Vector3 dir = rb.position - player.position;
             rb.AddForce(dir.normalized * desiredSpeed * Time.fixedDeltaTime * fleeWeight);

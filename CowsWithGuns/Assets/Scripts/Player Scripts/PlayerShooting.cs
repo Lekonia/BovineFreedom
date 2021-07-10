@@ -2,31 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ShootLogic)), DisallowMultipleComponent]
 public class PlayerShooting : MonoBehaviour
 {
-    public float maxDistance = 50;
-    public LayerMask layerMask;
     public Transform firePoint;
     [Space]
-    public float damage = 1;
     [Tooltip("Fire rate in bullets per second")]
     public float fireRate = 1;
     public float randomSpread = 0;
 
+    private ShootLogic shootLogic;
     // The time the last shot occured at
     private float lastShotTime = 0;
-
-    [Space]
-    public Material lineMat;
-    public Gradient lineColor;
-
-    class Line
-	{
-        public LineRenderer renderer;
-        public float time;
-	}
-    private Line[] lines;
-    private int lineIndex = 0;
 
 
 
@@ -37,60 +24,22 @@ public class PlayerShooting : MonoBehaviour
         // Convert from degrees to radians
         randomSpread *= Mathf.Deg2Rad;
 
-        // Setup line renderers
-        lines = new Line[10];
-        for (int i = 0; i < lines.Length; i++)
-		{
-            lines[i] = new Line();
-
-            GameObject obj = new GameObject("Line Renderer");
-            obj.transform.parent = transform;
-            lines[i].renderer = obj.AddComponent<LineRenderer>();
-            lines[i].renderer.enabled = false;
-            lines[i].renderer.material = lineMat;
-            lines[i].renderer.colorGradient = lineColor;
-            lines[i].renderer.widthMultiplier = 0.1f;
-        }
+        shootLogic = GetComponent<ShootLogic>();
     }
 
     void Update()
     {
         if (Input.GetMouseButton(0) && lastShotTime + fireRate <= Time.time)
 		{
-            Fire();
-		}
+            // Get a direction with a random rotation
+            Vector3 dir = firePoint.forward;
+            float angle = Random.Range(-randomSpread, randomSpread);
+            dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
+            dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
+            // Fire
+            shootLogic.Fire(firePoint.position, dir);
 
-        // Update lines
-        foreach (Line line in lines)
-		{
-            line.time += Time.deltaTime;
-            line.renderer.enabled = (line.time <= 0.1f);
-		}
+            lastShotTime = Time.time;
+        }
     }
-
-
-    private void Fire()
-	{
-        Vector3 dir = firePoint.forward;
-        // Rotate dir by random angle
-        float angle = Random.Range(-randomSpread, randomSpread);
-        dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
-        dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
-
-        Ray ray = new Ray(firePoint.position, dir);
-        Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance, layerMask);
-
-        // Enable line renderer to display shot
-        lines[lineIndex].renderer.enabled = true;
-        lines[lineIndex].renderer.SetPosition(0, firePoint.position);
-        // If it hit something, use the contact point, else the max distance
-        lines[lineIndex].renderer.SetPosition(1, hitInfo.transform == null ? ray.GetPoint(maxDistance) : hitInfo.point);
-        lines[lineIndex].time = 0;
-
-        lineIndex++;
-        if (lineIndex >= lines.Length)
-            lineIndex = 0;
-
-        lastShotTime = Time.time;
-	}
 }
