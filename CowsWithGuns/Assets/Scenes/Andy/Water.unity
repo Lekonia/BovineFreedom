@@ -287,6 +287,52 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &207275707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207275709}
+  - component: {fileID: 207275708}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &207275708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207275707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006d6bb3387892a48a91c9b92a8af0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dimension: 10
+  UVScale: 0
+  Octaves: []
+--- !u!4 &207275709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207275707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.1875, y: -1.5091558, z: -5.875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &965259959
 GameObject:
   m_ObjectHideFlags: 0
@@ -4352,7 +4398,6 @@ GameObject:
   - component: {fileID: 4437768344716616292}
   - component: {fileID: 4437768344717672774}
   - component: {fileID: 4437768344719845987}
-  - component: {fileID: 4437768344719845986}
   - component: {fileID: 4437768344719845985}
   m_Layer: 0
   m_Name: SM_Env_Ocean_Tile_01
@@ -4370,25 +4415,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4437768344719845984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4664e66b3d17cb24f941a2de856c34d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 006d6bb3387892a48a91c9b92a8af0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 1
-  length: 2
-  speed: 1
-  offset: 0
---- !u!114 &4437768344719845986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4437768344719845984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ddff2209566018459b8efb05144550c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Dimension: 10
+  UVScale: 2.79
+  Octaves:
+  - speed: {x: 0.84, y: 0.66}
+    scale: {x: 0, y: 0}
+    height: 0
+    alternate: 0
+  - speed: {x: 0, y: 0}
+    scale: {x: 0, y: 0}
+    height: 0
+    alternate: 0
 --- !u!64 &4437768344719845987
 MeshCollider:
   m_ObjectHideFlags: 0
