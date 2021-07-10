@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     public float maxDistance = 50;
-    
+    public LayerMask layerMask;
+    public Transform firePoint;
+    [Space]
     public float damage = 1;
     [Tooltip("Fire rate in bullets per second")]
     public float fireRate = 1;
@@ -14,7 +16,7 @@ public class PlayerShooting : MonoBehaviour
     // The time the last shot occured at
     private float lastShotTime = 0;
 
-
+    [Space]
     public Material lineMat;
     public Gradient lineColor;
 
@@ -69,22 +71,20 @@ public class PlayerShooting : MonoBehaviour
 
     private void Fire()
 	{
-        Vector3 dir = transform.forward;
+        Vector3 dir = firePoint.forward;
         // Rotate dir by random angle
         float angle = Random.Range(-randomSpread, randomSpread);
         dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
         dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
 
-
-        Ray ray = new Ray(transform.position, dir);
-
-        //do ray cast
-
+        Ray ray = new Ray(firePoint.position, dir);
+        Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance, layerMask);
 
         // Enable line renderer to display shot
         lines[lineIndex].renderer.enabled = true;
-        lines[lineIndex].renderer.SetPosition(0, transform.position);
-        lines[lineIndex].renderer.SetPosition(1, ray.GetPoint(100));    //change to hit point
+        lines[lineIndex].renderer.SetPosition(0, firePoint.position);
+        // If it hit something, use the contact point, else the max distance
+        lines[lineIndex].renderer.SetPosition(1, hitInfo.transform == null ? ray.GetPoint(maxDistance) : hitInfo.point);
         lines[lineIndex].time = 0;
 
         lineIndex++;
