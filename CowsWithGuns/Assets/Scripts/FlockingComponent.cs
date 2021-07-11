@@ -9,6 +9,8 @@ public class FlockingComponent : MonoBehaviour
 
 	public float seperationWeight = 4;
 	public float seperationRadius = 1;
+	public float seperationDistanceMult = 1;
+	public float seperationDistancePower = 2;
 	[Space]
 	public float cohesionWeight = 1;
 	public float cohesionRadius = 4;
@@ -92,10 +94,11 @@ public class FlockingComponent : MonoBehaviour
 			// Add the direction from each agent
 			if (sqrDist < seperationRadius * seperationRadius)
 			{
-				// Weigh the direction by the inverse of its distance.
-				// This results in the force being stronger the closer they are
 				Vector3 dir = rb.position - obj.position;
-				dir = dir.normalized / Mathf.Sqrt(sqrDist);
+				// Weigh the direction by a factor of the distance
+				float distanceFactor = seperationRadius / Mathf.Sqrt(sqrDist) - 1;
+				distanceFactor = Mathf.Pow(distanceFactor, seperationDistancePower) * seperationDistanceMult;
+				dir = dir.normalized * distanceFactor;
 
 				force += dir;
 				count++;

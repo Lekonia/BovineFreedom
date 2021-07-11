@@ -200,16 +200,21 @@ public class ShatterObject : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        run = true;
-        ShatterContainer.SetActive(true);
-        foreach (MeshRenderer mr in Meshs._Renderer)
-            mr.enabled = false;
+	private void OnCollisionEnter(Collision collision)
+	{
+        // If we collide with a herd agent, shatter
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Cow"))
+		{
+            run = true;
+            ShatterContainer.SetActive(true);
+            foreach (MeshRenderer mr in Meshs._Renderer)
+                mr.enabled = false;
+        }
     }
 
     private void OnEnable()
     {
+        // Reset the shattered object
         ShatterContainer.SetActive(false);
         foreach (MeshRenderer mr in Meshs._Renderer)
             mr.enabled = true;
