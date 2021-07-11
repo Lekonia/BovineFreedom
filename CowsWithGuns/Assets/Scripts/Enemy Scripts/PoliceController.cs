@@ -18,7 +18,7 @@ public class PoliceController : MonoBehaviour
     public float fleeWeight = 250;
     [Space]
     public Transform firePoint;
-    public float chanceToHit = 0.5f;
+    public float aimDelay = 0.3f;
     [Tooltip("Rate of fire in bullets per second")]
     public float fireRate = 1;
 
@@ -29,6 +29,7 @@ public class PoliceController : MonoBehaviour
 
     // The time of the last shot
     private float lastShotTime = 0;
+    private Vector3 aimPoint;
 
 
 
@@ -79,18 +80,21 @@ public class PoliceController : MonoBehaviour
             // Fire at the player
             if (lastShotTime + fireRate <= Time.time)
 			{
-                Vector3 dir = (player.position - firePoint.position).normalized;
-                // If we should miss the player, rotate the direction
-                bool shouldHit = Random.Range(0f, 1f) < chanceToHit;
-                if (!shouldHit)
-				{
-                    // Rotate by random angle to miss
-                    float angle = Random.Range(10f, 20f) * Mathf.Deg2Rad;
-                    dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
-                    dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
-                }
-                // Fire
-                shootLogic.Fire(firePoint.position, dir);
+                //Vector3 dir = (player.position - firePoint.position).normalized;
+                //// If we should miss the player, rotate the direction
+                //bool shouldHit = Random.Range(0f, 1f) < chanceToHit;
+                //if (!shouldHit)
+                //{
+                //    // Rotate by random angle to miss
+                //    float angle = Random.Range(10f, 20f) * Mathf.Deg2Rad;
+                //    dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
+                //    dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
+                //}
+                //// Fire
+                //shootLogic.Fire(firePoint.position, aimPoint - rb.position);
+
+                aimPoint = player.position;
+                StartCoroutine(FireAtPlayer());
 
                 lastShotTime = Time.time;
             }
@@ -106,4 +110,10 @@ public class PoliceController : MonoBehaviour
         agent.velocity = rb.velocity;
         agent.nextPosition = rb.position;
     }
+
+    private IEnumerator FireAtPlayer()
+	{
+        yield return new WaitForSeconds(aimDelay);
+        shootLogic.Fire(firePoint.position, aimPoint - rb.position);
+    }        
 }
