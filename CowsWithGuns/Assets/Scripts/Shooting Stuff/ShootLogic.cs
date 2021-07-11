@@ -54,7 +54,7 @@ public class ShootLogic : MonoBehaviour
     {
         // Create and cast ray
         Ray ray = new Ray(firePoint, direction);
-        Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance, layerMask);
+        Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance, layerMask, QueryTriggerInteraction.Ignore);
 
         // Try to damage whever was hit
         if (hitInfo.transform != null)

@@ -82,6 +82,7 @@ public class ShatterObject : MonoBehaviour
         ShatterContainer.name = gameObject.name + "ShatterContainer";
         ShatterContainer.transform.position = transform.position;
         ShatterContainer.transform.SetParent(transform);
+        ShatterContainer.transform.localScale = Vector3.one;
         ShatterContainer.SetActive(false);
 
         //create Objects
@@ -184,19 +185,22 @@ public class ShatterObject : MonoBehaviour
         ob.transform.position = Meshs._Transform[i].position;
         ob.transform.rotation = Meshs._Transform[i].rotation;
         ob.transform.localScale = Meshs._Transform[i].localScale;
+        
 
         //add components
         ob.AddComponent<MeshFilter>();
         ob.GetComponent<MeshFilter>().mesh = mesh;
         ob.AddComponent<MeshRenderer>();
+        ob.GetComponent<MeshRenderer>().sharedMaterial = Meshs._Renderer[i].sharedMaterial;
         ob.AddComponent<MeshCollider>();
         ob.GetComponent<MeshCollider>().sharedMesh = mesh;
         ob.GetComponent<MeshCollider>().convex = true;
         ob.AddComponent<Rigidbody>();
+
+        ob.transform.localScale = Vector3.one;
+
         ob.AddComponent<ShatterFragmentLogic>();
         ob.GetComponent<ShatterFragmentLogic>().Initialize(ExplosionForce, ExplosionPoint, ExplosionRadius);
-
-        ob.GetComponent<MeshRenderer>().sharedMaterial = Meshs._Renderer[i].sharedMaterial;
     }
 
 
@@ -209,6 +213,8 @@ public class ShatterObject : MonoBehaviour
             ShatterContainer.SetActive(true);
             foreach (MeshRenderer mr in Meshs._Renderer)
                 mr.enabled = false;
+
+            GetComponent<Collider>().enabled = false;
         }
     }
 
