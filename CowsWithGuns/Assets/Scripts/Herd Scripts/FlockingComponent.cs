@@ -6,7 +6,7 @@ using UnityEngine;
 public class FlockingComponent : MonoBehaviour
 {
 	public Transform target;
-
+	[Space]
 	public float seperationWeight = 4;
 	public float seperationRadius = 1;
 	public float seperationDistanceMult = 1;
@@ -25,6 +25,15 @@ public class FlockingComponent : MonoBehaviour
 	private Rigidbody rb;
 
 
+
+	// Set the target transform for all agents in the flock
+	public static void SetFlockTarget(Transform newTarget)
+	{
+		foreach (FlockingComponent obj in flock)
+		{
+			obj.target = newTarget;
+		}
+	}
 
     void Start()
     {
@@ -58,6 +67,11 @@ public class FlockingComponent : MonoBehaviour
 		// Apply the sum of forces
 		Vector3 force = Seperation(localFlock) + Cohesion(localFlock) + Seek();
 		rb.AddForce(force * Time.fixedDeltaTime);
+
+		// Rotate to face the direction of velocity
+		Vector3 dir = Vector3.Lerp(transform.forward, rb.velocity.normalized, Time.fixedDeltaTime * 5);
+		dir.y = 0;
+		transform.forward = (dir == Vector3.zero) ? transform.forward : dir;
     }
 
 

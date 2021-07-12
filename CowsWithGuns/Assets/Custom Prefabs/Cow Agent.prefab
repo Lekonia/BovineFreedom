@@ -126,11 +126,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  seperationWeight: 2.5
+  seperationWeight: 2.7
   seperationRadius: 1.2
-  seperationDistanceMult: 10
-  seperationDistancePower: 1.7
+  seperationDistanceMult: 13
+  seperationDistancePower: 1.75
   cohesionWeight: 0.25
   cohesionRadius: 4
-  seekTargetSpeed: 4
-  seekWeight: 1
+  seekTargetSpeed: 7
+  seekWeight: 1.8

@@ -318,7 +318,7 @@ MonoBehaviour:
   fleeRadius: 3
   fleeWeight: 250
   firePoint: {fileID: 5910804491394920031}
-  chanceToHit: 0.5
+  aimDelay: 0.3
   fireRate: 1
 --- !u!114 &2246512125897692347
 MonoBehaviour:
@@ -383,10 +383,10 @@ MonoBehaviour:
   OnDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2246512125897692345}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2246512125897692346}
+        m_TargetAssemblyTypeName: PoliceController, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -9,6 +9,8 @@ public class ShatterFragmentLogic : MonoBehaviour
     bool run;
     public void Initialize(float _Force, GameObject _Point, float _Radius)
     {
+        gameObject.layer = LayerMask.NameToLayer("Shatter Fragment");
+
         myPos = transform.localPosition;
         myRot = transform.localEulerAngles;
         myScale = transform.localScale;

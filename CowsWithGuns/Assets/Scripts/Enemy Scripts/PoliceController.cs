@@ -29,7 +29,6 @@ public class PoliceController : MonoBehaviour
 
     // The time of the last shot
     private float lastShotTime = 0;
-    private Vector3 aimPoint;
 
 
 
@@ -80,21 +79,7 @@ public class PoliceController : MonoBehaviour
             // Fire at the player
             if (lastShotTime + fireRate <= Time.time)
 			{
-                //Vector3 dir = (player.position - firePoint.position).normalized;
-                //// If we should miss the player, rotate the direction
-                //bool shouldHit = Random.Range(0f, 1f) < chanceToHit;
-                //if (!shouldHit)
-                //{
-                //    // Rotate by random angle to miss
-                //    float angle = Random.Range(10f, 20f) * Mathf.Deg2Rad;
-                //    dir.x = dir.x * Mathf.Cos(angle) - dir.z * Mathf.Sin(angle);
-                //    dir.z = dir.x * Mathf.Sin(angle) + dir.z * Mathf.Cos(angle);
-                //}
-                //// Fire
-                //shootLogic.Fire(firePoint.position, aimPoint - rb.position);
-
-                aimPoint = player.position;
-                StartCoroutine(FireAtPlayer());
+                StartCoroutine(FireAtPosition(player.position));
 
                 lastShotTime = Time.time;
             }
@@ -106,14 +91,23 @@ public class PoliceController : MonoBehaviour
             rb.AddForce(dir.normalized * desiredSpeed * Time.fixedDeltaTime * fleeWeight);
         }
 
+        // Rotate to face the player
+        transform.forward = Vector3.Lerp(transform.forward, (player.position - rb.position).normalized, Time.fixedDeltaTime * 10);
+
         // Update the nav mesh agent
         agent.velocity = rb.velocity;
         agent.nextPosition = rb.position;
     }
 
-    private IEnumerator FireAtPlayer()
+    private IEnumerator FireAtPosition(Vector3 pos)
 	{
         yield return new WaitForSeconds(aimDelay);
-        shootLogic.Fire(firePoint.position, aimPoint - rb.position);
-    }        
+        shootLogic.Fire(firePoint.position, pos - rb.position);
+    }
+    
+
+    public void DestroyObject()
+	{
+        Destroy(gameObject);
+	}
 }

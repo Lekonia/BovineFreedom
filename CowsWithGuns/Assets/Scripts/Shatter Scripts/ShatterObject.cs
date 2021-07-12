@@ -51,6 +51,28 @@ public class ShatterObject : MonoBehaviour
             }
         }
     }
+
+    private void Shatter()
+	{
+        run = true;
+        ShatterContainer.SetActive(true);
+        foreach (MeshRenderer mr in Meshs._Renderer)
+            mr.enabled = false;
+
+        GetComponent<Collider>().enabled = false;
+        if (TryGetComponent(out UnityEngine.AI.NavMeshObstacle obstacle))
+		{
+            obstacle.enabled = false;
+        }
+    }
+    private void ResetObject()
+	{
+        ShatterContainer.SetActive(false);
+        foreach (MeshRenderer mr in Meshs._Renderer)
+            mr.enabled = true;
+    }
+
+
     private void InstantiateBrokenObject()
     {
         //add meshes
@@ -188,19 +210,19 @@ public class ShatterObject : MonoBehaviour
         
 
         //add components
-        ob.AddComponent<MeshFilter>();
-        ob.GetComponent<MeshFilter>().mesh = mesh;
-        ob.AddComponent<MeshRenderer>();
-        ob.GetComponent<MeshRenderer>().sharedMaterial = Meshs._Renderer[i].sharedMaterial;
-        ob.AddComponent<MeshCollider>();
-        ob.GetComponent<MeshCollider>().sharedMesh = mesh;
-        ob.GetComponent<MeshCollider>().convex = true;
+        MeshFilter meshFilter = ob.AddComponent<MeshFilter>();
+        meshFilter.mesh = mesh;
+        MeshRenderer meshRenderer = ob.AddComponent<MeshRenderer>();
+        meshRenderer.sharedMaterial = Meshs._Renderer[i].sharedMaterial;
+        MeshCollider meshCollider = ob.AddComponent<MeshCollider>();
+        meshCollider.sharedMesh = mesh;
+        meshCollider.convex = true;
         ob.AddComponent<Rigidbody>();
 
         ob.transform.localScale = Vector3.one;
 
-        ob.AddComponent<ShatterFragmentLogic>();
-        ob.GetComponent<ShatterFragmentLogic>().Initialize(ExplosionForce, ExplosionPoint, ExplosionRadius);
+        ShatterFragmentLogic shatterFragmentLogic = ob.AddComponent<ShatterFragmentLogic>();
+        shatterFragmentLogic.Initialize(ExplosionForce, ExplosionPoint, ExplosionRadius);
     }
 
 
@@ -209,23 +231,15 @@ public class ShatterObject : MonoBehaviour
         // If we collide with a herd agent, shatter
         if (collision.gameObject.layer == LayerMask.NameToLayer("Cow"))
 		{
-            run = true;
-            ShatterContainer.SetActive(true);
-            foreach (MeshRenderer mr in Meshs._Renderer)
-                mr.enabled = false;
-
-            GetComponent<Collider>().enabled = false;
+            Shatter();
         }
     }
-
     private void OnEnable()
     {
-        // Reset the shattered object
-        ShatterContainer.SetActive(false);
-        foreach (MeshRenderer mr in Meshs._Renderer)
-            mr.enabled = true;
+        ResetObject();
     }
 }
+
 struct RendererVariables
 {
     public List<MeshFilter> _Filter;
