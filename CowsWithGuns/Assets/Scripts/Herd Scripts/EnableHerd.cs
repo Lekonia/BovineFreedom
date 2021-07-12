@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnableHerd : MonoBehaviour
 {
+	public bool shouldDisableObject = false;
+
     private List<FlockingComponent> herd = new List<FlockingComponent>();
 
 
@@ -11,6 +13,18 @@ public class EnableHerd : MonoBehaviour
     void Start()
     {
         herd.AddRange(GetComponentsInChildren<FlockingComponent>());
+
+		foreach (var obj in herd)
+		{
+			if (shouldDisableObject)
+			{
+				obj.gameObject.SetActive(false);
+			}
+			else
+			{
+				obj.enabled = false;
+			}
+		}
     }
 
 	void OnTriggerEnter(Collider other)
@@ -19,7 +33,14 @@ public class EnableHerd : MonoBehaviour
 		{
 			foreach(var obj in herd)
 			{
-				obj.enabled = true;
+				if (shouldDisableObject)
+				{
+					obj.gameObject.SetActive(true);
+				}
+				else
+				{
+					obj.enabled = true;
+				}
 			}
 
 			this.enabled = false;

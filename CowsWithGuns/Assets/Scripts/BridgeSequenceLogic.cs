@@ -11,6 +11,7 @@ public class BridgeSequenceLogic : MonoBehaviour
     public float spawnAngleMax;
     [Space]
     public float sequenceDurration = 15;
+    public Vector3 bridgeRotation;
     [Space]
     public Transform bridge;
     public GameObject bridgeCollider;
@@ -55,7 +56,7 @@ public class BridgeSequenceLogic : MonoBehaviour
     private IEnumerator MoveBridge()
 	{
         Quaternion start = bridge.rotation;
-        Quaternion end = start * Quaternion.Euler(90, 0, 0);
+        Quaternion end = start * Quaternion.Euler(bridgeRotation);
 
         float t = 0;
         while (t < sequenceDurration)

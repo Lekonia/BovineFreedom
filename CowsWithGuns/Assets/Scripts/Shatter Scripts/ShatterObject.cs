@@ -15,6 +15,7 @@ public class ShatterObject : MonoBehaviour
     [SerializeField] float DisableDelay;
 
     RendererVariables Meshs;
+    Collider[] colliders;
     GameObject ShatterContainer, ExplosionPoint;
     bool run;
     float elapsed;
@@ -59,7 +60,12 @@ public class ShatterObject : MonoBehaviour
         foreach (MeshRenderer mr in Meshs._Renderer)
             mr.enabled = false;
 
-        GetComponent<Collider>().enabled = false;
+        // Disable all colliders
+        foreach (Collider col in colliders)
+		{
+            col.enabled = false;
+		}
+        // If we have a nav mesh obstacle, disable it
         if (TryGetComponent(out UnityEngine.AI.NavMeshObstacle obstacle))
 		{
             obstacle.enabled = false;
@@ -75,6 +81,9 @@ public class ShatterObject : MonoBehaviour
 
     private void InstantiateBrokenObject()
     {
+        // Get all colliders before creating the fragments
+        colliders = GetComponentsInChildren<Collider>();
+
         //add meshes
         gameObject.TryGetComponent(out MeshFilter _mf);
         if (_mf != null)
@@ -92,7 +101,7 @@ public class ShatterObject : MonoBehaviour
                 Meshs._Filter.Add(_mf);
                 Meshs._Renderer.Add(transform.GetChild(i).GetComponent<MeshRenderer>());
                 Meshs._Transform.Add(transform.GetChild(i));
-                Meshs._Transform[Meshs._Transform.Count - 1].localScale = Vector3.Scale(Meshs._Transform[Meshs._Transform.Count - 1].localScale, transform.localScale);
+                //Meshs._Transform[Meshs._Transform.Count - 1].localScale = Vector3.Scale(Meshs._Transform[Meshs._Transform.Count - 1].localScale, transform.localScale);
             }
         }
     }
