@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShatterObject : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class ShatterObject : MonoBehaviour
     [Space]
     [SerializeField] GameObject DisableObject;
     [SerializeField] float DisableDelay;
+    [Space]
+    public GameObject[] enableObjects;
+    public UnityEvent OnShatter;
 
     RendererVariables Meshs;
     Collider[] colliders;
@@ -33,6 +37,9 @@ public class ShatterObject : MonoBehaviour
         ExplosionPoint.transform.position = transform.position + ExplosionPointOffset;
         ExplosionPoint.transform.SetParent(transform);
         ExplosionPoint.gameObject.name = gameObject.name + "ExplosionPoint";
+
+        if (DisableObject == null)
+            DisableObject = gameObject;
 
         //Create Duplicate
         InstantiateBrokenObject();
@@ -59,6 +66,12 @@ public class ShatterObject : MonoBehaviour
         ShatterContainer.SetActive(true);
         foreach (MeshRenderer mr in Meshs._Renderer)
             mr.enabled = false;
+
+        foreach (var obj in enableObjects)
+		{
+            obj.SetActive(true);
+		}
+        OnShatter.Invoke();
 
         // Disable all colliders
         foreach (Collider col in colliders)

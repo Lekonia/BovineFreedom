@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BridgeSequenceLogic : MonoBehaviour
 {
+    public int herdCount = 3;
+    [Space]
     public GameObject policePrefab;
     public float spawnDelay = 1;
     public float spawnDistance;
@@ -18,13 +20,13 @@ public class BridgeSequenceLogic : MonoBehaviour
     public Transform herdTarget;
 
     private Coroutine policeSpawner;
-    private bool hasBeenTriggered = false;
+    private bool canBeTriggered = false;
 
 
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (!hasBeenTriggered && other.CompareTag("Player"))
+		if (canBeTriggered && other.CompareTag("Player"))
 		{
             // Make the herd stay near the bridge instead of following the player
             FlockingComponent.SetFlockTarget(herdTarget);
@@ -32,7 +34,7 @@ public class BridgeSequenceLogic : MonoBehaviour
             policeSpawner = StartCoroutine(SpawnPolice());
             StartCoroutine(MoveBridge());
 
-            hasBeenTriggered = true;
+            canBeTriggered = false;
         }
 	}
 
@@ -75,4 +77,15 @@ public class BridgeSequenceLogic : MonoBehaviour
         // Make the herd follow the player
         FlockingComponent.SetFlockTarget(GameObject.FindGameObjectWithTag("Player").transform);
     }
+
+
+    public void OnHerdCollected()
+	{
+        herdCount--;
+
+        if (herdCount <= 0)
+		{
+            canBeTriggered = true;
+        }
+	}
 }

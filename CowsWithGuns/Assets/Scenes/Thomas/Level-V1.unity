@@ -536,7 +536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &403462895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +549,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2febef0b53b014892c7989db2245bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldDisableObject: 1
+  shouldDisableObject: 0
+  OnCollected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 788228454}
+        m_TargetAssemblyTypeName: BridgeSequenceLogic, Assembly-CSharp
+        m_MethodName: OnHerdCollected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &403462896
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -746,6 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31bf27c644d08a458356764db7b18a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  herdCount: 3
   policePrefab: {fileID: 2246512125897692345, guid: 5a78c5f1b3f0a6146a2b097a636cde4f, type: 3}
   spawnDelay: 1.25
   spawnDistance: 8
@@ -809,7 +825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &969308786
 Transform:
   m_ObjectHideFlags: 0
@@ -838,7 +854,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2febef0b53b014892c7989db2245bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldDisableObject: 1
+  shouldDisableObject: 0
+  OnCollected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 788228454}
+        m_TargetAssemblyTypeName: BridgeSequenceLogic, Assembly-CSharp
+        m_MethodName: OnHerdCollected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &969308788
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1262,6 +1293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDisableObject: 0
+  OnCollected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &1449332350
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1701,7 +1735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1697115562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,7 +1748,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2febef0b53b014892c7989db2245bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldDisableObject: 1
+  shouldDisableObject: 0
+  OnCollected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 788228454}
+        m_TargetAssemblyTypeName: BridgeSequenceLogic, Assembly-CSharp
+        m_MethodName: OnHerdCollected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &1697115563
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2136,6 +2185,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 459424030, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: enableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 459424030, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: enableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1697115561}
+    - target: {fileID: 475077755, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: enableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 475077755, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: enableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 403462894}
+    - target: {fileID: 1685945111, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: enableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685945111, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: enableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 969308785}
     - target: {fileID: 668447791442575214, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.8660254

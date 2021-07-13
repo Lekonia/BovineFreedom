@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnableHerd : MonoBehaviour
 {
 	public bool shouldDisableObject = false;
+	[Space]
+	public UnityEvent OnCollected;
 
     private List<FlockingComponent> herd = new List<FlockingComponent>();
 
@@ -43,6 +46,7 @@ public class EnableHerd : MonoBehaviour
 				}
 			}
 
+			OnCollected.Invoke();
 			this.enabled = false;
 		}
 	}
