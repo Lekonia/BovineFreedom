@@ -6,6 +6,8 @@ public class EndingTrigger : MonoBehaviour
 {
 	public int shopCount = 5;
 	public GameObject endingScreen;
+	public GameObject barrier;
+	public Transform herdTarget;
 
 	private bool canBeTriggered = false;
 
@@ -20,6 +22,7 @@ public class EndingTrigger : MonoBehaviour
 			other.GetComponent<PlayerShooting>().enabled = false;
 
 			endingScreen.SetActive(true);
+			FlockingComponent.SetFlockTarget(herdTarget);
 		}
 	}
 
@@ -30,6 +33,8 @@ public class EndingTrigger : MonoBehaviour
         if (shopCount <= 0)
 		{
 			canBeTriggered = true;
+			if (barrier != null)
+				barrier.SetActive(false);
 		}
     }
 }

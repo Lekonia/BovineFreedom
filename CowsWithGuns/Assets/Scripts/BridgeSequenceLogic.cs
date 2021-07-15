@@ -15,7 +15,8 @@ public class BridgeSequenceLogic : MonoBehaviour
     public float sequenceDurration = 15;
     public Vector3 bridgeRotation;
     [Space]
-    public Transform bridge;
+    public Transform bridge1;
+    public Transform bridge2;
     public GameObject bridgeCollider;
     public Transform herdTarget;
 
@@ -57,13 +58,16 @@ public class BridgeSequenceLogic : MonoBehaviour
 
     private IEnumerator MoveBridge()
 	{
-        Quaternion start = bridge.rotation;
-        Quaternion end = start * Quaternion.Euler(bridgeRotation);
+        Quaternion start1 = bridge1.rotation;
+        Quaternion start2 = bridge2.rotation;
+        Quaternion end1 = start1 * Quaternion.Euler(bridgeRotation);
+        Quaternion end2 = start2 * Quaternion.Euler(-bridgeRotation);
 
         float t = 0;
         while (t < sequenceDurration)
 		{
-            bridge.rotation = Quaternion.Slerp(start, end, t / sequenceDurration);
+            bridge1.rotation = Quaternion.Slerp(start1, end1, t / sequenceDurration);
+            bridge2.rotation = Quaternion.Slerp(start2, end2, t / sequenceDurration);
 
             t += Time.deltaTime;
             yield return null;
