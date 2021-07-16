@@ -157,7 +157,7 @@ Transform:
   - {fileID: 1034007567}
   - {fileID: 2014005202}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &86905857
 PrefabInstance:
@@ -678,6 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDisableObject: 0
+  objectiveIndex: 2
   OnCollected:
     m_PersistentCalls:
       m_Calls:
@@ -719,7 +720,7 @@ Transform:
   m_Children:
   - {fileID: 1575940934}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &421416972
 PrefabInstance:
@@ -924,6 +925,118 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 502848591}
   m_CullTransparentMesh: 1
+--- !u!1 &545493143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 545493145}
+  - component: {fileID: 545493144}
+  m_Layer: 0
+  m_Name: Objective Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &545493144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545493143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ad3fbcd02f95740b8d427847ec33fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveText: {fileID: 1143844196}
+  displayTime: 1
+  fadeInTime: 0.5
+  fadeOutTime: 0.5
+  objectives:
+  - name: Free the Herd
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 1
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Break into he Slaughter House
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 1
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Destroy the Buildings and Free the Cows
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 3
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Get to the Bridge
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 1
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Open the Bridge
+    shouldDisplayObjective: 1
+    type: 0
+    timed_time: 15
+    counted_count: 0
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Open the Truck
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 1
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Destroy the Buildings
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 11
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Escape Over the Bridge
+    shouldDisplayObjective: 1
+    type: 1
+    timed_time: 0
+    counted_count: 1
+    OnObjectiveCompleated:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!4 &545493145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545493143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &573386524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 240191158122241533, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
@@ -1021,8 +1134,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 502848592}
+  - {fileID: 1143844195}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1090,7 +1204,7 @@ Transform:
   - {fileID: 1535406699}
   - {fileID: 264425447}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &622208295
 PrefabInstance:
@@ -1284,7 +1398,7 @@ Transform:
   m_Children:
   - {fileID: 1194530484}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &795902407
 PrefabInstance:
@@ -1299,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4680266011933640, guid: 22659212538d64441aa7af56c6a17ce0, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4680266011933640, guid: 22659212538d64441aa7af56c6a17ce0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1402,6 +1516,7 @@ MonoBehaviour:
   ExplosionPointOffset: {x: 0, y: 0, z: 0}
   DisableObject: {fileID: 795902408}
   DisableDelay: 2
+  objectiveIndex: 5
   enableObjects:
   - {fileID: 8273301}
   OnShatter:
@@ -1638,7 +1753,7 @@ Transform:
   - {fileID: 1975774492}
   - {fileID: 319195686}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &969308787
 MonoBehaviour:
@@ -1653,6 +1768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDisableObject: 0
+  objectiveIndex: 2
   OnCollected:
     m_PersistentCalls:
       m_Calls:
@@ -1930,6 +2046,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 291406433616866168, guid: f8eb5076a247e41488d4c7eb70552051, type: 3}
   m_PrefabInstance: {fileID: 1120569738}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1143844194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143844195}
+  - component: {fileID: 1143844197}
+  - component: {fileID: 1143844196}
+  m_Layer: 5
+  m_Name: Objective Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1143844195
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143844194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 577122944}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.8}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -520, y: -100.000015}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1143844196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143844194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Objective
+--- !u!222 &1143844197
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143844194}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1146967896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2659,7 +2854,7 @@ Transform:
   - {fileID: 336455612}
   - {fileID: 1120569739}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1449332349
 MonoBehaviour:
@@ -2674,6 +2869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDisableObject: 0
+  objectiveIndex: -1
   OnCollected:
     m_PersistentCalls:
       m_Calls: []
@@ -2904,7 +3100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1823727866041370672, guid: 4e4dec3cef2d6da4c95744c6d868d165, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1823727866041370672, guid: 4e4dec3cef2d6da4c95744c6d868d165, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3372,6 +3568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDisableObject: 0
+  objectiveIndex: 2
   OnCollected:
     m_PersistentCalls:
       m_Calls:
@@ -3414,7 +3611,7 @@ Transform:
   - {fileID: 1222596766}
   - {fileID: 1935713221}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764072540
 GameObject:
@@ -3480,7 +3677,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1778324122
 PrefabInstance:
@@ -3610,7 +3807,7 @@ Transform:
   - {fileID: 1059502117}
   - {fileID: 803160257}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1889923189
 PrefabInstance:
@@ -3756,7 +3953,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!114 &1914279837
 MonoBehaviour:
@@ -3862,7 +4059,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &1935713220
 PrefabInstance:
@@ -3949,10 +4146,30 @@ PrefabInstance:
       propertyPath: enableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 403462894}
+    - target: {fileID: 657025112, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 844184424, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1685945111, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: enableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 969308785}
+    - target: {fileID: 1754851903, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754851903, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: isObjectiveTask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 68714582097786936, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 68714582097786936, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -3994,6 +4211,10 @@ PrefabInstance:
       value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 342754910357044753, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 342754910357044753, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4022,6 +4243,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 681514108364496216, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 681514108364496216, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4050,6 +4275,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1103957991791738097, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103957991791738097, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4078,6 +4307,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1333439565025971654, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1333439565025971654, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4106,6 +4339,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1726876788756392224, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726876788756392224, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4132,6 +4369,10 @@ PrefabInstance:
     - target: {fileID: 1726876788756392224, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498514346669362789, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4498514346669362789, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
@@ -4179,7 +4420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5783308135270244237, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5783308135270244237, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4222,6 +4463,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6171628071879044377, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171628071879044377, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4250,6 +4495,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7939914859258732575, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939914859258732575, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4278,6 +4527,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8146500072273779519, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146500072273779519, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4304,6 +4557,10 @@ PrefabInstance:
     - target: {fileID: 8146500072273779519, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9095657456816852267, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
+      propertyPath: objectiveIndex
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9095657456816852267, guid: 575799eb0ef88cc43862d03f931938ad, type: 3}
       propertyPath: OnShatter.m_PersistentCalls.m_Calls.Array.size

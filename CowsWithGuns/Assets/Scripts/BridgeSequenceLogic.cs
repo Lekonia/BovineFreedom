@@ -36,6 +36,9 @@ public class BridgeSequenceLogic : MonoBehaviour
             StartCoroutine(MoveBridge());
 
             canBeTriggered = false;
+
+            // "Get to the bridge"
+            ObjectiveManager.instance.CountedTaskComplete(3);
         }
 	}
 

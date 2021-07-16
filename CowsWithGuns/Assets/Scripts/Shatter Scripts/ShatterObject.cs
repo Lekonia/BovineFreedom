@@ -15,6 +15,9 @@ public class ShatterObject : MonoBehaviour
     [SerializeField] GameObject DisableObject;
     [SerializeField] float DisableDelay;
     [Space]
+    [Tooltip("The objective this task belongs to. -1 belongs to no objective")]
+    public int objectiveIndex = -1;
+    [Space]
     public GameObject[] enableObjects;
     public UnityEvent OnShatter;
 
@@ -83,6 +86,11 @@ public class ShatterObject : MonoBehaviour
 		{
             obstacle.enabled = false;
         }
+
+        if (objectiveIndex != -1)
+		{
+            ObjectiveManager.instance.CountedTaskComplete(objectiveIndex);
+		}
     }
     private void ResetObject()
 	{

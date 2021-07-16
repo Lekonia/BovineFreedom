@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class EnableHerd : MonoBehaviour
 {
 	public bool shouldDisableObject = false;
+	[Tooltip("The objective this task belongs to. -1 belongs to no objective")]
+	public int objectiveIndex = -1;
 	[Space]
 	public UnityEvent OnCollected;
 
@@ -44,6 +46,11 @@ public class EnableHerd : MonoBehaviour
 				{
 					obj.enabled = true;
 				}
+			}
+
+			if (objectiveIndex != -1)
+			{
+				ObjectiveManager.instance.CountedTaskComplete(objectiveIndex);
 			}
 
 			OnCollected.Invoke();
