@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(Rigidbody)), DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent)), DisallowMultipleComponent]
 public class FlockingComponent : MonoBehaviour
 {
 	public Transform target;
@@ -17,12 +18,15 @@ public class FlockingComponent : MonoBehaviour
 	[Space]
 	public float seekTargetSpeed = 1;
 	public float seekWeight = 1;
+	[Space]
+	public float pathfindDistance = 20;
 
 	private float radius;
 
 	// List containing all flocking agents
 	private static List<FlockingComponent> flock = new List<FlockingComponent>();
 	private Rigidbody rb;
+	private NavMeshAgent agent;
 
 
 
@@ -38,6 +42,9 @@ public class FlockingComponent : MonoBehaviour
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
+		agent = GetComponent<NavMeshAgent>();
+		agent.updatePosition = false;
+		agent.updateRotation = false;
 
 		// Use the larger value for the radius
 		radius = seperationRadius > cohesionRadius ? seperationRadius : cohesionRadius;
@@ -54,24 +61,38 @@ public class FlockingComponent : MonoBehaviour
 
 	void FixedUpdate()
     {
-		// Get the local flock
-		List<Transform> localFlock = new List<Transform>();
-		foreach(var obj in flock)
+		// If we are too far from the target, start pathfinding since we may be stuck
+		float sqrDist = Vector3.SqrMagnitude(transform.position - target.position);
+		if (sqrDist > pathfindDistance * pathfindDistance)
 		{
-			if (obj != this && Vector3.SqrMagnitude(rb.position - obj.transform.position) < radius * radius)
-			{
-				localFlock.Add(obj.transform);
-			}
+			agent.SetDestination(target.position);
+			rb.velocity = agent.desiredVelocity;
 		}
+		else
+		{
+			// Get the local flock
+			List<Transform> localFlock = new List<Transform>();
+			foreach (var obj in flock)
+			{
+				if (obj != this && Vector3.SqrMagnitude(rb.position - obj.transform.position) < radius * radius)
+				{
+					localFlock.Add(obj.transform);
+				}
+			}
 
-		// Apply the sum of forces
-		Vector3 force = Seperation(localFlock) + Cohesion(localFlock) + Seek();
-		rb.AddForce(force * Time.fixedDeltaTime);
+			// Apply the sum of forces
+			Vector3 force = Seperation(localFlock) + Cohesion(localFlock) + Seek();
+			rb.AddForce(force * Time.fixedDeltaTime);
+		}
 
 		// Rotate to face the direction of velocity
 		Vector3 dir = Vector3.Lerp(transform.forward, rb.velocity.normalized, Time.fixedDeltaTime * 5);
 		dir.y = 0;
 		transform.forward = (dir == Vector3.zero) ? transform.forward : dir;
+
+		// Update agent
+		agent.velocity = rb.velocity;
+		agent.nextPosition = rb.position;
     }
 
 
