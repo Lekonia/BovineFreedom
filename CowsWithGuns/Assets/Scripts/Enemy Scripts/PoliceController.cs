@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(ShootLogic)), DisallowMultipleComponent]
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(HealthLogic)), DisallowMultipleComponent]
 public class PoliceController : MonoBehaviour
 {
     public float desiredSpeed = 5;
@@ -25,7 +25,7 @@ public class PoliceController : MonoBehaviour
     private Transform player;
     private Rigidbody rb;
     private NavMeshAgent agent;
-    private ShootLogic shootLogic;
+    private ShootLogic weapon;
 
     // The time of the last shot
     private float lastShotTime = 0;
@@ -43,7 +43,10 @@ public class PoliceController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
-        shootLogic = GetComponent<ShootLogic>();
+        // Shoot script exists on child weapon object
+        weapon = GetComponentInChildren<ShootLogic>();
+        // Add listener for when we die
+        GetComponent<HealthLogic>().OnDie.AddListener(Die);
 
         // Convert to time between firing
         fireRate = 1 / fireRate;
@@ -102,12 +105,15 @@ public class PoliceController : MonoBehaviour
     private IEnumerator FireAtPosition(Vector3 pos)
 	{
         yield return new WaitForSeconds(aimDelay);
-        shootLogic.Fire(firePoint.position, pos - rb.position);
+        weapon.Fire(firePoint.position, pos - rb.position);
     }
     
 
-    public void DestroyObject()
+    private void Die()
 	{
+        // Drop weapon
+        weapon.SetWeaponDropState(true);
+
         Destroy(gameObject);
-	}
+    }
 }

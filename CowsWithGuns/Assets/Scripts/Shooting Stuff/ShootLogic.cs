@@ -77,4 +77,17 @@ public class ShootLogic : MonoBehaviour
         if (lineIndex >= lines.Length)
             lineIndex = 0;
     }
+
+
+    public void SetWeaponDropState(bool isDropped)
+	{
+        GetComponent<Collider>().enabled = isDropped;
+        GetComponent<MeshRenderer>().enabled = isDropped;
+
+        if (isDropped)
+		{
+            transform.parent = null;
+            transform.localScale = Vector3.one;
+		}
+	}
 }

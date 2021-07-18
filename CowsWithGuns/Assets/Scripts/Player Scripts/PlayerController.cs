@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     private MobileControllerScript mobileScript;
     private Rigidbody rb;
-    private Plane plane = new Plane(Vector3.up, 0);
 
 
 
@@ -21,9 +20,8 @@ public class PlayerController : MonoBehaviour
         
         if (mobileScript.onMobile)
 		{
-            //create joysticks
+            //create joystick
             mobileScript.CreateNewJoystick("Left Stick", new Vector2(100, 100));
-            mobileScript.CreateNewJoystick("Right Stick", new Vector2(-100, 100), new Vector2(1, 0), new Vector2(1, 0), new Vector2(1, 0));
         }
     }
 
@@ -32,12 +30,6 @@ public class PlayerController : MonoBehaviour
 	{
         //move using the rigidbody
         rb.MovePosition(rb.position + GetMovement() * moveSpeed * Time.fixedDeltaTime);
-        //rotate by setting the forward direction
-        Vector3 direction = GetDirection();
-        if (direction != Vector3.zero)
-		{
-            transform.forward = GetDirection();
-        }
 	}
 
     // Read movement input
@@ -60,29 +52,6 @@ public class PlayerController : MonoBehaviour
                 y = 0,
                 z = Input.GetAxis("Vertical")
             };
-        }
-    }
-    // Get the direction the player is facing
-    private Vector3 GetDirection()
-	{
-        if (mobileScript.onMobile)
-        {
-            return new Vector3
-            {
-                x = mobileScript.joystickValues["Right Stick"].x,
-                y = 0f,
-                z = mobileScript.joystickValues["Right Stick"].y
-            };
-        }
-        else
-        {
-            // Cast ray from cursor to plane
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            plane.Raycast(ray, out float enter);
-            // Use the hit point relitive to the player as the direction
-            Vector3 point = ray.GetPoint(enter) - transform.position;
-            point.y = 0;
-            return point;
         }
     }
 }

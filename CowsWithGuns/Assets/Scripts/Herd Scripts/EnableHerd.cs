@@ -54,7 +54,7 @@ public class EnableHerd : MonoBehaviour
 			}
 
 			OnCollected.Invoke();
-			this.enabled = false;
+			GetComponent<Collider>().enabled = false;
 		}
 	}
 }

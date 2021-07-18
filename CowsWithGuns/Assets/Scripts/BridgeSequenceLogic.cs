@@ -18,7 +18,6 @@ public class BridgeSequenceLogic : MonoBehaviour
     public Transform bridge1;
     public Transform bridge2;
     public GameObject bridgeCollider;
-    public Transform herdTarget;
 
     private Coroutine policeSpawner;
     private bool canBeTriggered = false;
@@ -29,9 +28,6 @@ public class BridgeSequenceLogic : MonoBehaviour
 	{
 		if (canBeTriggered && other.CompareTag("Player"))
 		{
-            // Make the herd stay near the bridge instead of following the player
-            FlockingComponent.SetFlockTarget(herdTarget);
-
             policeSpawner = StartCoroutine(SpawnPolice());
             StartCoroutine(MoveBridge());
 
@@ -80,9 +76,6 @@ public class BridgeSequenceLogic : MonoBehaviour
         StopCoroutine(policeSpawner);
         // Allow the gap to be crossed
         bridgeCollider.SetActive(false);
-
-        // Make the herd follow the player
-        FlockingComponent.SetFlockTarget(GameObject.FindGameObjectWithTag("Player").transform);
     }
 
 

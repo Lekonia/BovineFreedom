@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent)), DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent), typeof(HealthLogic)), DisallowMultipleComponent]
 public class FlockingComponent : MonoBehaviour
 {
 	public Transform target;
@@ -20,6 +20,9 @@ public class FlockingComponent : MonoBehaviour
 	public float seekWeight = 1;
 	[Space]
 	public float pathfindDistance = 20;
+	[Space]
+	public Transform firePoint;
+	public LayerMask layerMask;
 
 	private float radius;
 
@@ -27,6 +30,11 @@ public class FlockingComponent : MonoBehaviour
 	private static List<FlockingComponent> flock = new List<FlockingComponent>();
 	private Rigidbody rb;
 	private NavMeshAgent agent;
+
+	private ShootLogic weapon;
+	[HideInInspector]
+	public bool hasWeapon = false;
+	public static List<FlockingComponent> cowsWithGuns = new List<FlockingComponent>();
 
 
 
@@ -39,12 +47,25 @@ public class FlockingComponent : MonoBehaviour
 		}
 	}
 
+
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
 		agent = GetComponent<NavMeshAgent>();
 		agent.updatePosition = false;
 		agent.updateRotation = false;
+		// Check if we already have a gun
+		if (TryGetComponent<ShootLogic>(out ShootLogic shootLogic))
+		{
+			transform.localScale = Vector3.one;
+
+			weapon = shootLogic;
+			weapon.SetWeaponDropState(false);
+			weapon.layerMask = layerMask;
+			hasWeapon = true;
+		}
+		// Add listener for when we die
+		GetComponent<HealthLogic>().OnDie.AddListener(Die);
 
 		// Use the larger value for the radius
 		radius = seperationRadius > cohesionRadius ? seperationRadius : cohesionRadius;
@@ -53,10 +74,18 @@ public class FlockingComponent : MonoBehaviour
 	void OnEnable()
 	{
 		flock.Add(this);
+		if (hasWeapon)
+		{
+			cowsWithGuns.Add(this);
+		}
 	}
 	void OnDisable()
 	{
 		flock.Remove(this);
+		if (hasWeapon)
+		{
+			cowsWithGuns.Remove(this);
+		}
 	}
 
 	void FixedUpdate()
@@ -95,6 +124,47 @@ public class FlockingComponent : MonoBehaviour
 		agent.nextPosition = rb.position;
     }
 
+	void OnTriggerEnter(Collider other)
+	{
+		// If we dont have a weapon and have touched one, take it
+		if (!hasWeapon && other.CompareTag("Weapon"))
+		{
+			cowsWithGuns.Add(this);
+			transform.localScale = Vector3.one;
+
+			other.transform.parent = transform;
+			other.transform.localPosition = Vector3.zero;
+			weapon = other.GetComponent<ShootLogic>();
+			weapon.SetWeaponDropState(false);
+			hasWeapon = true;
+
+			weapon.layerMask = layerMask;
+		}
+	}
+
+
+	public void Shoot(Vector3 aimPoint)
+	{
+		if (weapon != null)
+		{
+			Vector3 dir = aimPoint - firePoint.position;
+			dir.y = 0;
+			weapon.Fire(firePoint.position, dir);
+		}
+	}
+
+	private void Die()
+	{
+		// If we have a weapon, drop it
+		if (weapon != null)
+		{
+			cowsWithGuns.Remove(this);
+			weapon.SetWeaponDropState(true);
+			hasWeapon = false;
+		}
+
+		Destroy(gameObject);
+	}
 
 	private Vector3 Seek()
 	{

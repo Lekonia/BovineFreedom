@@ -65,6 +65,9 @@ public class ShatterObject : MonoBehaviour
 
     private void Shatter()
 	{
+        if (run == true)
+            return;
+
         run = true;
         ShatterContainer.SetActive(true);
         foreach (MeshRenderer mr in Meshs._Renderer)
