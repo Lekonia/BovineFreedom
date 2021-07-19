@@ -18,6 +18,7 @@ public class FlockingComponent : MonoBehaviour
 	[Space]
 	public float seekTargetSpeed = 1;
 	public float seekWeight = 1;
+	public float seekStoppingDistance = 2;
 	[Space]
 	public float pathfindDistance = 20;
 	[Space]
@@ -170,6 +171,7 @@ public class FlockingComponent : MonoBehaviour
 	{
 		// Get the desired direction
 		Vector3 desieredVel = target.position - rb.position;
+		float sqrDist = Vector3.SqrMagnitude(desieredVel);
 		desieredVel.Normalize();
 
 		// Multiply the heading by the max speed to get desiered velocity
@@ -180,6 +182,14 @@ public class FlockingComponent : MonoBehaviour
 		// If non-zero, normalise to the base value
 		if (desieredVel != Vector3.zero)
 			desieredVel = desieredVel.normalized * 100;
+
+		// Make force counteract current velocity to slow down as we approach the target, making this arrival and not seek
+		if (sqrDist < seekStoppingDistance * seekStoppingDistance)
+		{
+			desieredVel *= (Mathf.Sqrt(sqrDist) / seekStoppingDistance);
+			desieredVel -= rb.velocity * 35;	//magic number to counteract base value
+		}
+
 		return desieredVel * seekWeight;
 	}
 	private Vector3 Seperation(in List<Transform> swarm)

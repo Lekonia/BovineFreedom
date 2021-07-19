@@ -130,13 +130,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   seperationWeight: 7
-  seperationRadius: 1.2
-  seperationDistanceMult: 30
-  seperationDistancePower: 3
-  cohesionWeight: 0.5
+  seperationRadius: 1.3
+  seperationDistanceMult: 25
+  seperationDistancePower: 2.5
+  cohesionWeight: 1.5
   cohesionRadius: 4
   seekTargetSpeed: 15
-  seekWeight: 4
+  seekWeight: 4.5
+  seekStoppingDistance: 0.5
   pathfindDistance: 20
   firePoint: {fileID: 5717904815315677364}
   layerMask:
